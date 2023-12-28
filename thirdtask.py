@@ -28,11 +28,23 @@ if response.status_code == 200:
     print(data.dtypes)
 
     print("\nProduct Names for Available Products:")
-    for index, row in data.head(10).iterrows():
+    # for index, row in data.head(10).iterrows():
+    #     if row['Availability'] == 'Available':
+    #         print(row['Product Name'])
+    print("\nProduct Names for the First 10 Available Products:")
+counter = 0
+
+for index, row in data.iterrows():
         if row['Availability'] == 'Available':
             print(row['Product Name'])
+            counter += 1
+
+            if counter == 10:
+                break
 
 else:
     print(f"Failed to fetch data")
 #print("Unique Values in 'Availability' Column:")
 #print(data['Availability'].unique())
+available_products = data[data['Availability'] == 'Available']
+print(f"\nNumber of Available Products: {len(available_products)}")
